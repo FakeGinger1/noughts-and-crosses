@@ -7,6 +7,7 @@
  
  package noughts;
 
+import java.util.Random;
 import java.util.Scanner;
 
 class Play{
@@ -25,6 +26,7 @@ class Play{
             while (true) { // infinite loop
                 game.printBoard(); // print board
                 playerTurn(); // human turn
+                game.printBoard(); // print board
                 computerTurn(); // computer tuen
         }
     }
@@ -38,6 +40,11 @@ class Play{
 
     public void computerTurn() {
         // computer turn - currently does nothing other than print out a message
-        System.out.println("Computer is thinking");
+        Random rand = new Random();
+        int square = rand.nextInt(10);
+        while ((square==0)||!game.isEmpty(square)){
+            square = rand.nextInt(10);
+        }
+        game.setComputer(square);
     }
 }

@@ -69,7 +69,7 @@ public class Game {
         System.out.println("Board");
         System.out.printf("| %c %c %c |\n", boxChar(1), boxChar(2), boxChar(3));
         System.out.printf("| %c %c %c |\n", boxChar(4), boxChar(5), boxChar(6));
-        System.out.printf("| %c %c %c |\n", boxChar(7), boxChar(8), boxChar(8));
+        System.out.printf("| %c %c %c |\n", boxChar(7), boxChar(8), boxChar(9));
     }
     
 }
