@@ -35,6 +35,18 @@ class Play{
         System.out.print("Take a square (1-9): ");
                 // Reading data using readLine
         int square = input.nextInt();
+        while ((square<1)||(square>9)||(!game.isEmpty(square))){//user input validation
+            if(square<1||square>9){//choice not in bounds of board
+                System.out.println("Your choice is out of bounds of the board, try again:");
+            }
+            else if(game.getBox(square)==BoxStatus.Computer) {//square taken by computer
+                System.out.println("That square is taken by the computer, try again:");
+            }
+            else{//square taken by human
+                System.out.println("That square is taken by you, try again:");
+            }
+            square = input.nextInt();
+        }
         game.setHuman(square);
     }
 
