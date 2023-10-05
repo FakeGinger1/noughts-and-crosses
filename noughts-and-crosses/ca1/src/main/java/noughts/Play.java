@@ -7,6 +7,7 @@
  
  package noughts;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -26,8 +27,10 @@ class Play{
             while (true) { // infinite loop
                 game.printBoard(); // print board
                 playerTurn(); // human turn
+                System.out.println(game.getResult());
                 game.printBoard(); // print board
                 computerTurn(); // computer tuen
+                System.out.println(game.getResult());
         }
     }
     public void playerTurn()  {
@@ -59,4 +62,6 @@ class Play{
         }
         game.setComputer(square);
     }
+
+
 }

@@ -71,5 +71,18 @@ public class Game {
         System.out.printf("| %c %c %c |\n", boxChar(4), boxChar(5), boxChar(6));
         System.out.printf("| %c %c %c |\n", boxChar(7), boxChar(8), boxChar(9));
     }
+
+    public String getResult(){//Takes board input and displays the current status of the board
+        ArrayList<BoxStatus> currentPositions = new ArrayList<>();
+        for (int i=1;i<10;i++){
+            currentPositions.add(this.getBox(i));
+        }
+        System.out.println(currentPositions);
+        if (currentPositions.contains(BoxStatus.Empty)){
+            return "Incomplete";
+        }
+
+    }
+
     
 }
