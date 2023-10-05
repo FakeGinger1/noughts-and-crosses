@@ -8,6 +8,7 @@
  package noughts;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -24,17 +25,18 @@ class Play{
             System.out.println("Welcome to noughts and crosses"); 
             game = new Game();  // create game board
             input = new Scanner(System.in);  // Scanner for user input
-            while (true) { // infinite loop
-                game.printBoard(); // print board
-                playerTurn(); // human turn
-                System.out.println(game.getResult());
-                game.printBoard(); // print board
-                computerTurn(); // computer tuen
-                System.out.println(game.getResult());
+            while (game.getResult()==WinStatus.INCOMPLETE){//while playable moves left
+                game.printBoard(); //print board
+                playerTurn(); //player moves
+                game.getResult(); //check for winner
+                game.printBoard(); //print board
+                computerTurn(); //computer moves
+                game.getResult(); //check for winner
+
         }
     }
     public void playerTurn()  {
-        // Player turn: just read in a sqaure and claim it for human
+        // Player turn: just read in a square and claim it for human
         System.out.print("Take a square (1-9): ");
                 // Reading data using readLine
         int square = input.nextInt();

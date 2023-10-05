@@ -6,9 +6,7 @@
 
 package noughts;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  *
@@ -17,7 +15,11 @@ import java.util.List;
 public class Game {
     
     BoxStatus[] board = new BoxStatus[9];  // board contains 9 boxes
-    static{//list of lists of possible winning combination indexes for when board displayed as list
+
+    static List<List<Integer>> winningCombinations = new ArrayList<>();//list containing
+    // lists of all the possible winning combination indexes for when board is displayed as list.
+
+    static{//fill winningCombinations with lists of winning indexes
         List<Integer> firstRow = Arrays.asList(0,1,2);
         List<Integer> secondRow = Arrays.asList(3,4,5);
         List<Integer> thirdRow = Arrays.asList(6,7,8);
@@ -27,7 +29,6 @@ public class Game {
         List<Integer> firstDiagonal = Arrays.asList(0,4,8);
         List<Integer> secondDiagonal = Arrays.asList(2,4,6);
 
-        List<List> winningCombinations = new ArrayList<>();
         winningCombinations.add(firstRow);
         winningCombinations.add(secondRow);
         winningCombinations.add(thirdRow);
@@ -93,18 +94,30 @@ public class Game {
         System.out.printf("| %c %c %c |\n", boxChar(7), boxChar(8), boxChar(9));
     }
 
-    public String getResult(){//Takes board input and displays the current status of the board
-        ArrayList<BoxStatus> currentPositions = new ArrayList<>();
+    public WinStatus getResult(){//Takes board input and displays the current status of the board
+        ArrayList<BoxStatus> currentPositions = new ArrayList<>();//convert positions held on board into array format
         for (int i=1;i<10;i++){
             currentPositions.add(this.getBox(i));
         }
-        System.out.println(currentPositions);
-        if (currentPositions.contains(BoxStatus.Empty)){
-            return "Incomplete";
+
+        List<BoxStatus> computerWin = Arrays.asList(BoxStatus.Computer,BoxStatus.Computer,BoxStatus.Computer);//winning computer list
+        List<BoxStatus> humanWin = Arrays.asList(BoxStatus.Human,BoxStatus.Human,BoxStatus.Human);//wining human list
+        for(List<Integer> l:winningCombinations){//iterate through lists of winning combinations
+            List<BoxStatus> placements = new ArrayList<>(); //holds status of each index of the combination currently checked
+            for(int i:l){//check set of winning indexes
+                placements.add(currentPositions.get(i));
+            }
+            if (placements.equals(computerWin)){//computer wins
+                return WinStatus.COMPUTER;
+            }
+            else if (placements.equals(humanWin)){//human wins
+                return WinStatus.HUMAN;
+            }
+            else if(!currentPositions.contains(BoxStatus.Empty)){//no winner and board full
+                return WinStatus.DRAW;
+            }
         }
-
-
-        return"";
+        return WinStatus.INCOMPLETE; //board has playable moves
 
     }
 
