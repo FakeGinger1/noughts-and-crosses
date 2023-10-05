@@ -25,15 +25,23 @@ class Play{
             System.out.println("Welcome to noughts and crosses"); 
             game = new Game();  // create game board
             input = new Scanner(System.in);  // Scanner for user input
+            System.out.println("Do you want to play the first move? (Y/N):");
+            String firstMove = input.nextLine();
+            while(!Objects.equals(firstMove, "Y") && !Objects.equals(firstMove, "N")){
+                System.out.println("Please choose Y OR N:");
+                firstMove = input.nextLine();
+            }
             while (game.getResult()==WinStatus.INCOMPLETE){//while playable moves left
-                game.printBoard(); //print board
-                playerTurn(); //player moves
+                if (Objects.equals(firstMove, "Y")) { //player first move
+                    playerFirst();
+                }
+                else{ //computer first move
+                    computerFirst();
+                }
                 game.getResult(); //check for winner
                 game.printBoard(); //print board
-                computerTurn(); //computer moves
-                game.getResult(); //check for winner
 
-        }
+            }
     }
     public void playerTurn()  {
         // Player turn: just read in a square and claim it for human
@@ -63,6 +71,20 @@ class Play{
             square = rand.nextInt(10);
         }
         game.setComputer(square);
+    }
+
+    public void playerFirst(){
+        playerTurn(); //player moves
+        game.getResult(); //check for winner
+        game.printBoard(); //print board
+        computerTurn(); //computer moves
+    }
+
+    public void computerFirst(){
+        computerTurn(); //computer moves
+        game.getResult(); //check for winner
+        game.printBoard(); //print board
+        playerTurn(); //player moves
     }
 
 
