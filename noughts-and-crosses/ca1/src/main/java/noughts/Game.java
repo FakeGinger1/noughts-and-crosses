@@ -7,6 +7,7 @@
 package noughts;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -16,7 +17,27 @@ import java.util.List;
 public class Game {
     
     BoxStatus[] board = new BoxStatus[9];  // board contains 9 boxes
-    
+    static{//list of lists of possible winning combination indexes for when board displayed as list
+        List<Integer> firstRow = Arrays.asList(0,1,2);
+        List<Integer> secondRow = Arrays.asList(3,4,5);
+        List<Integer> thirdRow = Arrays.asList(6,7,8);
+        List<Integer> firstColumn = Arrays.asList(0,3,6);
+        List<Integer> secondColumn = Arrays.asList(1,4,7);
+        List<Integer> thirdColumn = Arrays.asList(2,5,8);
+        List<Integer> firstDiagonal = Arrays.asList(0,4,8);
+        List<Integer> secondDiagonal = Arrays.asList(2,4,6);
+
+        List<List> winningCombinations = new ArrayList<>();
+        winningCombinations.add(firstRow);
+        winningCombinations.add(secondRow);
+        winningCombinations.add(thirdRow);
+        winningCombinations.add(firstColumn);
+        winningCombinations.add(secondColumn);
+        winningCombinations.add(thirdColumn);
+        winningCombinations.add(firstDiagonal);
+        winningCombinations.add(secondDiagonal);
+    }
+
     /** Creates a new instance of game */
     public Game() {
         for(int i = 0; i<9; i++)
@@ -81,6 +102,9 @@ public class Game {
         if (currentPositions.contains(BoxStatus.Empty)){
             return "Incomplete";
         }
+
+
+        return"";
 
     }
 
