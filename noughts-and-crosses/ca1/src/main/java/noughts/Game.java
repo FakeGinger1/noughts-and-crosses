@@ -138,5 +138,18 @@ public class Game {
         return result;
     }
 
+    public ArrayList<Integer> getPossibleMoves(){//get a list of all the empty spaces on current board
+        ArrayList<Integer> possibleMoves = new ArrayList<>();
+        for (int i=1;i<10;i++){
+            if (this.getBox(i)==BoxStatus.Empty){
+                possibleMoves.add(i);
+            }
+        }
+        System.out.println(possibleMoves);
+        return possibleMoves;
+    }
+
+
+
     
 }
