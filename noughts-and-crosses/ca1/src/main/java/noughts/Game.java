@@ -124,5 +124,19 @@ public class Game {
 
     }
 
+    public int score(){//score projected moves for Computer.
+        int result = 0;
+        if (this.getResult()==WinStatus.COMPUTER) {
+            result = 1;
+        }
+        else if (this.getResult()==WinStatus.HUMAN){
+            result = -1;
+        }
+        else if (this.getResult()==WinStatus.DRAW){
+            return 0;
+        }
+        return result;
+    }
+
     
 }
