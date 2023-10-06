@@ -70,6 +70,12 @@ public class Game {
         // computer claims square N
         board[n-1] = BoxStatus.Computer;
     }
+
+    public void resetBoard(){
+        for(int i = 0; i<9; i++)
+            board[i] = BoxStatus.Empty;
+    }
+
     
     public BoxStatus getBox(int n) {
         // return square N
@@ -95,10 +101,7 @@ public class Game {
     }
 
     public WinStatus getResult(){//Takes board input and displays the current status of the board
-        ArrayList<BoxStatus> currentPositions = new ArrayList<>();//convert positions held on board into array format
-        for (int i=1;i<10;i++){
-            currentPositions.add(this.getBox(i));
-        }
+        List<BoxStatus> currentPositions = List.of(this.board);
 
         List<BoxStatus> computerWin = Arrays.asList(BoxStatus.Computer,BoxStatus.Computer,BoxStatus.Computer);//winning computer list
         List<BoxStatus> humanWin = Arrays.asList(BoxStatus.Human,BoxStatus.Human,BoxStatus.Human);//wining human list
