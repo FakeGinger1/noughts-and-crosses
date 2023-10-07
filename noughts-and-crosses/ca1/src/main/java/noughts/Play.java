@@ -31,16 +31,22 @@ class Play{
                 System.out.println("Please choose Y OR N:");
                 firstMove = input.nextLine();
             }
-            while (game.getResult()==WinStatus.INCOMPLETE){//while playable moves left
-                if (Objects.equals(firstMove, "Y")) { //player first move
-                    playerFirst();
-                }
-                else{ //computer first move
+            while (true){//while playable moves left
+                if (Objects.equals(firstMove, "N")) { //player first move
                     computerFirst();
                 }
-                game.getResult(); //check for winner
+                playerTurn(); //player moves
                 game.printBoard(); //print board
-
+                if(game.getResult()!=WinStatus.INCOMPLETE){
+                    game.printResultMessage();
+                    break;
+                }
+                computerTurn(); //computer moves
+                game.printBoard();
+                if(game.getResult()!=WinStatus.INCOMPLETE){
+                    game.printResultMessage();
+                    break;
+                }
             }
     }
     public void playerTurn()  {
@@ -64,27 +70,14 @@ class Play{
     }
 
     public void computerTurn() {
-        // computer turn - currently does nothing other than print out a message
-        Random rand = new Random();
-        int square = rand.nextInt(10);
-        while ((square==0)||!game.isEmpty(square)){
-            square = rand.nextInt(10);
-        }
-        game.setComputer(square);
+        // computer turn
+        game.setComputer(ComputerGameplay.getBestMove(game));
     }
 
-    public void playerFirst(){
-        playerTurn(); //player moves
-        game.getResult(); //check for winner
-        game.printBoard(); //print board
-        computerTurn(); //computer moves
-    }
 
     public void computerFirst(){
-        computerTurn(); //computer moves
-        game.getResult(); //check for winner
-        game.printBoard(); //print board
-        playerTurn(); //player moves
+        game.setComputer(1);
+        game.printBoard();
     }
 
 

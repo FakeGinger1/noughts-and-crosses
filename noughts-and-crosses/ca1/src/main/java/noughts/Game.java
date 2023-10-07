@@ -13,8 +13,9 @@ import java.util.*;
  * @author ereiter
  */
 public class Game {
-    
+
     BoxStatus[] board = new BoxStatus[9];  // board contains 9 boxes
+    //BoxStatus currentTurn;
 
     static List<List<Integer>> winningCombinations = new ArrayList<>();//list containing
     // lists of all the possible winning combination indexes for when board is displayed as list.
@@ -43,32 +44,40 @@ public class Game {
     public Game() {
         for(int i = 0; i<9; i++)
             board[i] = BoxStatus.Empty;  // initially each box is empty (not taken)
-        
+
     }
-    
+
+
     public boolean isEmpty(int n) {
         // is a box empty?
         return (board[n-1] == BoxStatus.Empty);
     }
-    
+
     public boolean isComputer(int n) {
         // is a box taken by the Computer?
         return (board[n-1] == BoxStatus.Computer);
     }
-    
+
     public boolean isHuman(int n) {
         // is a box taken by the Human?
         return (board[n-1] == BoxStatus.Human);
     }
-    
+
     public void setHuman(int n) {
         // human claims square N
-        board[n-1] = BoxStatus.Human;
+        board[n-1] = BoxStatus.Human;//turn finished
+        //currentTurn=BoxStatus.Computer;//current turn now computer
     }
-    
+
     public void setComputer(int n) {
         // computer claims square N
-        board[n-1] = BoxStatus.Computer;
+        board[n-1] = BoxStatus.Computer;//turn finished
+        //currentTurn=BoxStatus.Human;//current turn now human
+    }
+
+
+    public void setEmpty(int n){
+        board[n-1]=BoxStatus.Empty;
     }
 
     public void resetBoard(){
@@ -76,7 +85,7 @@ public class Game {
             board[i] = BoxStatus.Empty;
     }
 
-    
+
     public BoxStatus getBox(int n) {
         // return square N
         return board[n-1];
@@ -124,32 +133,24 @@ public class Game {
 
     }
 
-    public int score(){//score projected moves for Computer.
-        int result = 0;
-        if (this.getResult()==WinStatus.COMPUTER) {
-            result = 1;
+    public void printResultMessage(){
+        switch (this.getResult()){
+            case COMPUTER:System.out.println("Computer Wins!");break;
+            case HUMAN:System.out.println("Well Done! You Win!");break;
+            case DRAW:System.out.println("It's A Draw");break;
+
         }
-        else if (this.getResult()==WinStatus.HUMAN){
-            result = -1;
-        }
-        else if (this.getResult()==WinStatus.DRAW){
-            return 0;
-        }
-        return result;
     }
 
-    public ArrayList<Integer> getPossibleMoves(){//get a list of all the empty spaces on current board
-        ArrayList<Integer> possibleMoves = new ArrayList<>();
-        for (int i=1;i<10;i++){
-            if (this.getBox(i)==BoxStatus.Empty){
-                possibleMoves.add(i);
-            }
-        }
-        System.out.println(possibleMoves);
-        return possibleMoves;
-    }
+
+
+}
+
+
+
+
 
 
 
     
-}
+
