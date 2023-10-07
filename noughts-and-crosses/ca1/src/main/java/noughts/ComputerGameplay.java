@@ -8,17 +8,12 @@ import java.util.Map;
 public class ComputerGameplay {
 
     public static int score(Game game){//score projected moves for Computer.
-        int result = 0;
-        if (game.getResult()==WinStatus.COMPUTER) {//computer win results in +10 for computer
-            result = 10;
+        int score = 0;
+        switch (game.getResult()){
+            case HUMAN:score =  -10;break; //if board result = Human win, set score to -10
+            case COMPUTER: score = 10;break; //if board result = Computer win, set score to 10
         }
-        else if (game.getResult()==WinStatus.HUMAN){//human win results in -10 for computer
-            result = -10;
-        }
-        else if (game.getResult()==WinStatus.DRAW){//draw is 0
-            result = 0;
-        }
-        return result;
+        return score;
     }
 
     public static Map<Integer,Game> getPossibleMoves(Game game){//get a list of all the empty spaces on current board
