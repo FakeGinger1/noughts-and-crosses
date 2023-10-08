@@ -12,6 +12,10 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ *
+ * @author Laura Orlowska
+ */
 class Play{
     Game game;   // the noughts and crosses game
     Scanner input;
@@ -31,7 +35,7 @@ class Play{
                 System.out.println("Please choose Y OR N:");
                 firstMove = input.nextLine();
             }
-            while (true){//while playable moves left
+            while (true){
                 if (Objects.equals(firstMove, "N")) { //player first move
                     computerFirst();
                 }
@@ -70,7 +74,7 @@ class Play{
     }
 
     public void computerTurn() {
-        // computer turn
+        // computer turn, calls getBestMove to calculate the best possible move for Computer
         game.setComputer(ComputerGameplay.getBestMove(game));
     }
 

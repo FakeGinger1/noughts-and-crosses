@@ -10,12 +10,11 @@ import java.util.*;
 
 /**
  *
- * @author ereiter
+ * @author ereiter and Laura Orlowska
  */
 public class Game {
 
     BoxStatus[] board = new BoxStatus[9];  // board contains 9 boxes
-    //BoxStatus currentTurn;
 
     static List<List<Integer>> winningCombinations = new ArrayList<>();//list containing
     // lists of all the possible winning combination indexes for when board is displayed as list.
@@ -81,6 +80,7 @@ public class Game {
     }
 
     public void resetBoard(){
+        //all board squares back to empty
         for(int i = 0; i<9; i++)
             board[i] = BoxStatus.Empty;
     }
@@ -102,7 +102,7 @@ public class Game {
     }
 
     public void printBoard() {
-        // print the noard on System.out
+        // print the board on System.out
         System.out.println("Board");
         System.out.printf("| %c %c %c |\n", boxChar(1), boxChar(2), boxChar(3));
         System.out.printf("| %c %c %c |\n", boxChar(4), boxChar(5), boxChar(6));
@@ -134,6 +134,7 @@ public class Game {
     }
 
     public void printResultMessage(){
+        //print message of game result
         switch (this.getResult()){
             case COMPUTER:System.out.println("Computer Wins!");break;
             case HUMAN:System.out.println("Well Done! You Win!");break;
