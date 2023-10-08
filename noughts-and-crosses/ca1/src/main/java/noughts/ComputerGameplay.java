@@ -118,7 +118,7 @@ public class ComputerGameplay {
     }
 
     public static BoxStatus getCurrentTurn(Game game) {//returns the current turn of the game
-        BoxStatus currentTurn=BoxStatus.Empty;
+        BoxStatus currentTurn=BoxStatus.Human;
         int humanCount = 0;
         int computerCount = 0;
         System.out.println(game.getFirstTurn());
@@ -135,8 +135,6 @@ public class ComputerGameplay {
         }
         if(humanCount>computerCount){
             currentTurn=BoxStatus.Computer;
-        } else if (humanCount<computerCount) {
-            currentTurn=BoxStatus.Human;
         }
         System.out.println(currentTurn);
         return currentTurn;
