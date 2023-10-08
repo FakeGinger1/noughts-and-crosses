@@ -15,7 +15,8 @@ import java.util.*;
 public class Game {
 
     BoxStatus[] board = new BoxStatus[9];  // board contains 9 boxes
-
+    //BoxStatus currentTurn = BoxStatus.Empty;
+    BoxStatus firstTurn = BoxStatus.Human;
     static List<List<Integer>> winningCombinations = new ArrayList<>();//list containing
     // lists of all the possible winning combination indexes for when board is displayed as list.
 
@@ -74,6 +75,16 @@ public class Game {
         //currentTurn=BoxStatus.Human;//current turn now human
     }
 
+    public BoxStatus getFirstTurn() {
+        return firstTurn;
+    }
+
+    public void setFirstTurn(BoxStatus firstTurn) {
+        this.firstTurn = firstTurn;
+    }
+
+    //public BoxStatus getCurrentTurn(){return currentTurn;}
+    //public void setCurrentTurn(BoxStatus currentTurn) {this.currentTurn = currentTurn;}
 
     public void setEmpty(int n){
         board[n-1]=BoxStatus.Empty;

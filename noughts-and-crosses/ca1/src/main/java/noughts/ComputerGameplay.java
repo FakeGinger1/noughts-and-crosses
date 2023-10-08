@@ -36,9 +36,10 @@ public class ComputerGameplay {
             if (currentBoard.getBox(i)==BoxStatus.Empty){ //skip over all taken squares and place
                 // current player in next empty spot of the iteration.
                 if (getCurrentTurn(currentBoard)==BoxStatus.Computer){
+                    //System.out.println("c"+currentBoard.currentTurn);
                     currentBoard.setComputer(i);
                 }
-                else {currentBoard.setHuman(i);}
+                else{currentBoard.setHuman(i);}
                 possibleBoards.put(i,currentBoard);//add move index and game board to possibleBoards
             }
         }
@@ -99,6 +100,9 @@ public class ComputerGameplay {
 
     public static Game copyBoard(Game game){//make copy of current game object
         Game boardCopy = new Game();//new Game object for copy
+        if (game.getFirstTurn()==BoxStatus.Computer){
+            boardCopy.setFirstTurn(BoxStatus.Computer);
+        }
         for(int i=1;i<10;i++){//iterate through game and copy positions to boardCopy
             if (game.getBox(i)==BoxStatus.Computer){
                 boardCopy.setComputer(i);
@@ -114,9 +118,13 @@ public class ComputerGameplay {
     }
 
     public static BoxStatus getCurrentTurn(Game game) {//returns the current turn of the game
-        BoxStatus currentTurn=BoxStatus.Human;
+        BoxStatus currentTurn=BoxStatus.Empty;
         int humanCount = 0;
         int computerCount = 0;
+        System.out.println(game.getFirstTurn());
+        if(game.getFirstTurn()==BoxStatus.Computer){
+            humanCount++;
+        }
         for(BoxStatus i:game.board){
             if(i==BoxStatus.Human){
                 humanCount++;
@@ -127,7 +135,10 @@ public class ComputerGameplay {
         }
         if(humanCount>computerCount){
             currentTurn=BoxStatus.Computer;
+        } else if (humanCount<computerCount) {
+            currentTurn=BoxStatus.Human;
         }
+        System.out.println(currentTurn);
         return currentTurn;
     }
 
