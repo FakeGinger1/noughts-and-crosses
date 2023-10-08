@@ -39,7 +39,7 @@ class Play{
             while (true) {//infinite loop
                 if (Objects.equals(firstMove, "N")) { //player first move
                     computerFirst();
-                    game.setFirstTurn(BoxStatus.Computer);
+                    game.setFirstTurn(BoxStatus.Computer);//update firstTurn variable s
                     }
                 playerTurn(); //player moves
                 game.printBoard(); //print board

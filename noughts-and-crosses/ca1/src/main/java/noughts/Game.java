@@ -16,29 +16,7 @@ public class Game {
 
     BoxStatus[] board = new BoxStatus[9];  // board contains 9 boxes
     //BoxStatus currentTurn = BoxStatus.Empty;
-    BoxStatus firstTurn = BoxStatus.Human;
-    static List<List<Integer>> winningCombinations = new ArrayList<>();//list containing
-    // lists of all the possible winning combination indexes for when board is displayed as list.
-
-    static{//fill winningCombinations with lists of winning indexes
-        List<Integer> firstRow = Arrays.asList(0,1,2);
-        List<Integer> secondRow = Arrays.asList(3,4,5);
-        List<Integer> thirdRow = Arrays.asList(6,7,8);
-        List<Integer> firstColumn = Arrays.asList(0,3,6);
-        List<Integer> secondColumn = Arrays.asList(1,4,7);
-        List<Integer> thirdColumn = Arrays.asList(2,5,8);
-        List<Integer> firstDiagonal = Arrays.asList(0,4,8);
-        List<Integer> secondDiagonal = Arrays.asList(2,4,6);
-
-        winningCombinations.add(firstRow);
-        winningCombinations.add(secondRow);
-        winningCombinations.add(thirdRow);
-        winningCombinations.add(firstColumn);
-        winningCombinations.add(secondColumn);
-        winningCombinations.add(thirdColumn);
-        winningCombinations.add(firstDiagonal);
-        winningCombinations.add(secondDiagonal);
-    }
+    BoxStatus firstTurn = BoxStatus.Human;//tracks who took first turn in game
 
     /** Creates a new instance of game */
     public Game() {
@@ -46,7 +24,6 @@ public class Game {
             board[i] = BoxStatus.Empty;  // initially each box is empty (not taken)
 
     }
-
 
     public boolean isEmpty(int n) {
         // is a box empty?
@@ -120,28 +97,39 @@ public class Game {
         System.out.printf("| %c %c %c |\n", boxChar(7), boxChar(8), boxChar(9));
     }
 
-    public WinStatus getResult(){//Takes board input and displays the current status of the board
-        List<BoxStatus> currentPositions = List.of(this.board);
-
+    public WinStatus getResult(){//returns the state of the board
         List<BoxStatus> computerWin = Arrays.asList(BoxStatus.Computer,BoxStatus.Computer,BoxStatus.Computer);//winning computer list
         List<BoxStatus> humanWin = Arrays.asList(BoxStatus.Human,BoxStatus.Human,BoxStatus.Human);//wining human list
-        for(List<Integer> l:winningCombinations){//iterate through lists of winning combinations
-            List<BoxStatus> placements = new ArrayList<>(); //holds status of each index of the combination currently checked
-            for(int i:l){//check set of winning indexes
-                placements.add(currentPositions.get(i));
-            }
-            if (placements.equals(computerWin)){//computer wins
-                return WinStatus.COMPUTER;
-            }
-            else if (placements.equals(humanWin)){//human wins
-                return WinStatus.HUMAN;
-            }
-            else if(!currentPositions.contains(BoxStatus.Empty)){//no winner and board full
-                return WinStatus.DRAW;
+        for(int j=0;j<8;j++){//checks all winning combinations for Computer or Human win
+            List<BoxStatus> checkCombo = checkWinningCombos(j);
+            if (checkCombo.equals(computerWin)) {
+                return WinStatus.COMPUTER; //board complete or incomplete and Computer won
+            } else if (checkCombo.equals(humanWin)) {
+                return WinStatus.HUMAN;//board complete or incomplete and Human won
             }
         }
-        return WinStatus.INCOMPLETE; //board has playable moves
+        for(int i=1;i<10;i++){
+            if(this.getBox(i)==BoxStatus.Empty){
+                return WinStatus.INCOMPLETE;//board not complete and no wins found
+            }
+        }
+        return WinStatus.DRAW;//board complete and no wins founds
+    }
 
+    public List<BoxStatus> checkWinningCombos(int i){
+        List<BoxStatus> winningCombo = new ArrayList<>();
+        switch (i){//all possible winning states
+            case 0: winningCombo = List.of(this.getBox(1),this.getBox(2),this.getBox(3));break;
+            case 1: winningCombo = List.of(this.getBox(4),this.getBox(5),this.getBox(6));break;
+            case 2: winningCombo = List.of(this.getBox(7),this.getBox(8),this.getBox(9));break;
+            case 3: winningCombo = List.of(this.getBox(1),this.getBox(4),this.getBox(7));break;
+            case 4: winningCombo = List.of(this.getBox(2),this.getBox(5),this.getBox(8));break;
+            case 5: winningCombo = List.of(this.getBox(3),this.getBox(6),this.getBox(9));break;
+            case 6: winningCombo = List.of(this.getBox(1), this.getBox(5), this.getBox(9));break;
+            case 7: winningCombo = List.of(this.getBox(3),this.getBox(5),this.getBox(7));break;
+            default:
+        }
+        return winningCombo;
     }
 
     public void printResultMessage(){
@@ -153,9 +141,6 @@ public class Game {
 
         }
     }
-
-
-
 }
 
 
