@@ -170,7 +170,18 @@ public class PlayTest
         testBoard.setComputer(5);
         testBoard.setHuman(3);
 
-        assertEquals(2,ComputerGameplay.getBestMove(testBoard));
+        assertEquals(2,ComputerGameplay.getBestMove(testBoard));//check human first, computer blocks human
+
+        testBoard.resetBoard();
+        testBoard.setHuman(6);
+        testBoard.setFirstTurn(BoxStatus.Human);
+        testBoard.setComputer(3);
+        testBoard.setHuman(4);
+        testBoard.setComputer(5);
+        testBoard.setHuman(1);
+
+        assertEquals(7,ComputerGameplay.getBestMove(testBoard));//check human first, computer win possibility
+
 
         testBoard.resetBoard();
         testBoard.setComputer(9);
@@ -178,7 +189,16 @@ public class PlayTest
         testBoard.setHuman(1);
         testBoard.setComputer(3);
         testBoard.setHuman(5);
-        assertEquals(6,ComputerGameplay.getBestMove(testBoard));
+
+        assertEquals(6,ComputerGameplay.getBestMove(testBoard));//check computer first, computer win possibility
+
+        testBoard.resetBoard();
+        testBoard.setComputer(1);
+        testBoard.setHuman(3);
+        testBoard.setComputer(5);
+        testBoard.setHuman(9);
+
+        assertEquals(6,ComputerGameplay.getBestMove(testBoard));//check computer first, computer blocks human
 
 
     }
